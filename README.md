@@ -3,7 +3,7 @@
 
 
 # 🚩 Tech
->- Python
+>Python
 >- Pandas
 >- BeautifulSoup
 >- Openpyxl
