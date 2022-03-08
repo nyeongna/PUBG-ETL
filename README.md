@@ -3,10 +3,10 @@
 
 
 # 🚩 Tech
->Python
->- Pandas
->- BeautifulSoup
->- Openpyxl
+> Python
+> Pandas
+> BeautifulSoup
+> Openpyxl
 
 # Data Source
 [SITCA - Volume](https://www.sitca.org.tw/ROC/Industry/IN2610.aspx?pid=IN22603_03) <br>
