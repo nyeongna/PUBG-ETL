@@ -20,3 +20,11 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 Below is the total process of ETL process used in this project. All the workflows were controlled by AirFlow. Raw dataset is stored in AWS S3 bucket and all the data wrangling process is handled by AWS EMR cluster (mostly spark-related work). Then final Fact and Dimension tables are created in AWS Redshift, which supports fast query speed and compuatation due to columnar storage characteristic.
 ![image](https://user-images.githubusercontent.com/26275222/157262095-ef985cd1-29f7-4c8d-8e97-c3db0cbffa82.png)
 
+# How to Run
+1. You need to have AWS CLI configuration ready ([for details](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
+2. You need 🐳 docker & docker-compose
+3. Run the following command in the terminal where you git clone the reposit 'docker-compose -f docker-compose-LocalExecutor.yml up -d'
+4. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
+5. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
+6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
+7. Run the dag named "spark_submit_airflow"
