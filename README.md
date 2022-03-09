@@ -32,7 +32,7 @@ Above is the total process of ETL process used in this project. All the workflow
 
 # Fact/Dimension Tables
 ![image](https://user-images.githubusercontent.com/26275222/157388669-a460918c-4dff-4cbc-91cf-2c5deaf36141.png)
-kill_log table acts as <strong>FACT table </strong>. Each record represents every kill log during the match and the details of the kill log and relevant players info are stored in other DIMENSION tables.
+kill_log table acts as <strong>FACT table </strong>. Each record represents every kill log during the match and the details of the kill log and relevant players info are stored in other <strong>DIMENSION tables </strong>.
 - Detailed information about the match itself (map, game_size, etc...) can be found by JOINING the fact table with "match" table with JOIN key of "match_id".
 - "killer_id" and "victim_id" represents unique identifier for the player at specific match. It can be used as JOIN key with "player_id" column of "player" table.
 - Detailed "timestamp" information can be retrieved by JOINING "kill_log" table with "time" table with JOIN key of "timestamp".
@@ -54,3 +54,6 @@ LIMIT 3
 By JOINING Fact & Dimension tables, one can get the detilaed information regarding the kill log of the match. The result of the above code would be as follows
 ![image](https://user-images.githubusercontent.com/26275222/157399373-993e2d90-655b-4e66-96af-f3d47d5ac115.png)
 
+# Reasons for using the following Tech Stacks
+Often times when Data Engineering work is needed, seemless workflows from Extract to Transform to Load are necessary. These 3 steps can be treated as one single data engineering work and Airflow works as one of the best tools to orchestrate the 3 ETL steps. Airflow now supports Hook and easy connections to almost all the AWS Services including S3, EMR, and Redshift. <br>
+Since AWS Services share the same data center, moving data from AWS Service to other AWS Services guarantee high speed and stability. Thus, AWS S3 was chosen for Storage(replacing HDFS). AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3. Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast comutation of the data. 
