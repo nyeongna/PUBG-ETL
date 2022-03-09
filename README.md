@@ -9,12 +9,12 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 [PUBG - Weapon](https://www.kaggle.com/aadhavvignesh/pubg-weapon-stats?select=pubg-weapon-stats.csv) - weapons-related dataset
 
 # 🚩 Tech
->- Python
->- AirFlow
->- Docker
->- AWS S3
->- AWS EMR
->- AWS Redshift
+- Python
+- AirFlow
+- Docker
+- AWS S3
+- AWS EMR
+- AWS Redshift
 
 # General Description
 ![image](https://user-images.githubusercontent.com/26275222/157262095-ef985cd1-29f7-4c8d-8e97-c3db0cbffa82.png)
