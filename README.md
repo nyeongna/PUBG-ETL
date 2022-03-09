@@ -32,10 +32,16 @@ Above is the total process of ETL process used in this project. All the workflow
 
 # DAG and Tasks
 ![image](https://user-images.githubusercontent.com/26275222/157407898-47bfa5ec-30f4-4d29-84dc-bc819d59e893.png)
-start_data_pipeline
-- DummyOperator to indicate the successful run of the DAG
-[script_to_s3, data_to_s3]
-- dasd
+- start_data_pipeline: DummyOperator to indicate the successful run of the DAG
+- <script_to_s3, data_to_s3>: Load raw data and spark script to S3
+- create_emr_cluster: Create AWS EMR cluster for spark job
+- add_steps: Submit a list of work EMR cluster needs to do
+- watch_step: Check if the EMR cluster and the steps are successfully done
+- terminate_emr_cluster: Terminate the created EMR cluster after job finished
+- create_tables: Create Fact/Dimension tables in AWS Redshift
+- load_XXX_table: Load the output csv file from EMR cluster in S3 to Redsfhit
+- check_data_quality: Check if the data is successfully stored in Redshift table
+- end_data_pipeline: DummyOperator to indicate the successful end of the DAG
 
 
 # 📊 Fact/Dimension Tables
