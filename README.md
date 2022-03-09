@@ -51,3 +51,6 @@ LEFT JOIN pubg.player as p2 ON kl.victim_id = p2.player_id
 LEFT JOIN pubg.weapon as w ON kl.weapon = w.weapon
 LIMIT 3
 ```
+By JOINING Fact & Dimension tables, one can get the detilaed information regarding the kill log of the match. The result of the above code would be as follows
+![image](https://user-images.githubusercontent.com/26275222/157399373-993e2d90-655b-4e66-96af-f3d47d5ac115.png)
+
