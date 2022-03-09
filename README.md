@@ -66,7 +66,7 @@ LEFT JOIN pubg.weapon as w ON kl.weapon = w.weapon
 LIMIT 3
 ```
 By JOINING Fact & Dimension tables, one can get the detilaed information regarding the kill log of the match. The result of the above code would be as follows
-![image](https://user-images.githubusercontent.com/26275222/157399373-993e2d90-655b-4e66-96af-f3d47d5ac115.png)
+![image](https://user-images.githubusercontent.com/26275222/157410400-bf421080-f64b-41f7-ae1c-42b710b6cea0.png)
 
 # ✔︎ Reasons for the Tech Stacks
 - Often times when Data Engineering work is needed, seemless workflows from Extract to Transform to Load are necessary. These 3 steps can be treated as one single data engineering work and Airflow works as one of the best tools to orchestrate the 3 ETL steps.
