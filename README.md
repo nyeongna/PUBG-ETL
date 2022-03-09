@@ -37,3 +37,17 @@ kill_log table acts as <strong>FACT table </strong>. Each record represents ever
 - "killer_id" and "victim_id" represents unique identifier for the player at specific match. It can be used as JOIN key with "player_id" column of "player" table.
 - Detailed "timestamp" information can be retrieved by JOINING "kill_log" table with "time" table with JOIN key of "timestamp".
 - Specific information regarding the weapon that was used in the kill log can be found in the "weapon" dimension table. It can be retrieved by JOINING the fact table with "weapon" table.
+
+# Query Exmaple
+```sql
+SELECT kl.weapon AS Weapon, m.map AS Map,
+p1.player_name AS Killer, p1.team_placement AS Killer_placement, p1.player_kills AS Killer_kill, p1.player_dmg AS Killer_dmg,
+p2.player_name AS Victim, p2.team_placement AS Killer_placement, p2.player_kills AS Vivctim_kill, p2.player_dmg AS Victim_dmg
+FROM pubg.kill_log as kl
+LEFT JOIN pubg.match as m ON kl.match_id = m.match_id
+LEFT JOIN pubg.time as t ON kl.timestamp = t.timestamp
+LEFT JOIN pubg.player as p1 ON kl.killer_id = p1.player_id
+LEFT JOIN pubg.player as p2 ON kl.victim_id = p2.player_id
+LEFT JOIN pubg.weapon as w ON kl.weapon = w.weapon
+LIMIT 3
+```
