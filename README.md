@@ -27,4 +27,8 @@ Below is the total process of ETL process used in this project. All the workflow
 4. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
 5. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
 6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
-7. Run the dag named "spark_submit_airflow"
+7. Create the S3 bucket with the name you specified for "BUCKET_NAME"
+8. Run the dag named "spark_submit_airflow"
+
+# Fact/Dimension Tables
+![image](https://user-images.githubusercontent.com/26275222/157388669-a460918c-4dff-4cbc-91cf-2c5deaf36141.png)
