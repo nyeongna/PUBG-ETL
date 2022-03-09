@@ -32,4 +32,8 @@ Above is the total process of ETL process used in this project. All the workflow
 
 # Fact/Dimension Tables
 ![image](https://user-images.githubusercontent.com/26275222/157388669-a460918c-4dff-4cbc-91cf-2c5deaf36141.png)
-kill_log table acts as <strong>FACT table </strong>
+kill_log table acts as <strong>FACT table </strong>. Each record represents every kill log during the match and the details of the kill log and relevant players info are stored in other DIMENSION tables.
+- Detailed information about the match itself (map, game_size, etc...) can be found by JOINING the fact table with "match" table with JOIN key of "match_id".
+- "killer_id" and "victim_id" represents unique identifier for the player at specific match. It can be used as JOIN key with "player_id" column of "player" table.
+- Detailed "timestamp" information can be retrieved by JOINING "kill_log" table with "time" table with JOIN key of "timestamp".
+- Specific information regarding the weapon that was used in the kill log can be found in the "weapon" dimension table. It can be retrieved by JOINING the fact table with "weapon" table.
