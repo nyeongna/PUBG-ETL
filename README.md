@@ -1,7 +1,7 @@
 # PUBG - ETL
 
 # 📖 Overview
-This project is to practice the ETL process with Player Unknown Battle Ground(PUBG) dataset. Often times, dataset below 10,000 rows can easily be handled within a single server. However, when the size of the dataset is over 1,000,000 or even higher up to billions, the need for distributed computation is somewhat required. This project utilizes three PUBG-related dataset (two of them with 1,000,000 rows) from Kaggle. This ETL process loads the dataset into AWS S3 bucket, creates the AWS EMR cluster, loads and transforms the dataset within the EMR cluster-end by using pySpark, then write the transformed dataset back to AWS S3 in csv format. Then finally, it extracts the dataset in the S3 to final Fact and Dimension tables in AWS Redshift. All of above series of steps are orchestrated by AirFlow.
+This project is to practice the ETL process with Player Unknown Battle Ground(PUBG) dataset. Often times, dataset below 10,000 rows can easily be handled within a single server. However, when the size of the dataset is over 1,000,000 or even higher up to billions, the need for distributed computation is somewhat required. This project utilizes three PUBG-related dataset (two of them with 1,000,000 rows) from Kaggle. This ETL process loads the dataset into AWS S3 bucket, creates the AWS EMR cluster, loads and transforms the dataset within the EMR cluster-end by using pySpark, then write the transformed dataset back to AWS S3 in csv format. Then finally, it extracts the dataset in the S3 to final Fact and Dimension tables in AWS Redshift. All of above series of steps are orchestrated by AirFlow. Structure of the Fact/Dimension tables are made based on the future analytical queries.
 
 # ⚡︎ Data Source
 - [PUBG - Aggregate](https://www.kaggle.com/skihikingkevin/pubg-match-deaths?select=aggregate) - match-related dataset <br>
@@ -32,16 +32,16 @@ Above is the total process of ETL process used in this project. All the workflow
 
 # DAG and Tasks
 ![image](https://user-images.githubusercontent.com/26275222/157407898-47bfa5ec-30f4-4d29-84dc-bc819d59e893.png)
-- start_data_pipeline: DummyOperator to indicate the successful run of the DAG
-- <script_to_s3, data_to_s3>: Load raw data and spark script to S3
-- create_emr_cluster: Create AWS EMR cluster for spark job
-- add_steps: Submit a list of work EMR cluster needs to do
-- watch_step: Check if the EMR cluster and the steps are successfully done
-- terminate_emr_cluster: Terminate the created EMR cluster after job finished
-- create_tables: Create Fact/Dimension tables in AWS Redshift
-- load_XXX_table: Load the output csv file from EMR cluster in S3 to Redsfhit
-- check_data_quality: Check if the data is successfully stored in Redshift table
-- end_data_pipeline: DummyOperator to indicate the successful end of the DAG
+- <strong>start_data_pipeline</strong>: DummyOperator to indicate the successful run of the DAG
+- <strong><script_to_s3, data_to_s3></strong>: Load raw data and spark script to S3
+- <strong>create_emr_cluster</strong>: Create AWS EMR cluster for spark job
+- <strong>add_steps</strong>: Submit a list of work EMR cluster needs to do
+- <strong>watch_step</strong>: Check if the EMR cluster and the steps are successfully done
+- <strong>terminate_emr_cluster</strong>: Terminate the created EMR cluster after job finished
+- <strong>create_tables</strong>: Create Fact/Dimension tables in AWS Redshift
+- <strong>load_XXX_table</strong>: Load the output csv file from EMR cluster in S3 to Redsfhit
+- <strong>check_data_quality</strong>: Check if the data is successfully stored in Redshift table
+- <strong>end_data_pipeline</strong>: DummyOperator to indicate the successful end of the DAG
 
 
 # 📊 Fact/Dimension Tables
