@@ -75,17 +75,21 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - For data wrangling, Spark was used instead of Hadoop since Spark supports faster speed with the use of in-memory as intermediate data saving storage (replacing HDFS). For this Spark job, AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3.
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
+<br>
+***
+  
 # 🤔 Struggle Points
   
 ## S3, Redshift 관련
 - [S3, Redshift] Region 을 동일시하면, data transfer 속도가 빨라짐 (같은 데이터 센터 내에 있기 때문)
-- S3 → Redshift 로 옮기는 COPT COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, ignoreheader=1 옵션을 꼭 넣어줘야함
-  - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 순서가 중요
--
+- COPY COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, **ignoreheader=1** 옵션을 꼭 넣어줘야함
+  - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 **순서가 중요**
+- COPY COMMAND 작성시, 옵션에 "TIMEFORMAT 'YYYY-MM-DD HH:MI:SS" 추가해줘야함
+  - 옵션 안 적을시 Redshift에 "yyyy-MM-dd HH:mm:ss.0" 형식으로 default 로 저장
   
 ## AirFlow 관련
 - Airflow 버전별(v1, v2)로 CustomOperator 라이브러리와 사용법이 다르므로 주의할 것. 현 프로젝트는 v1.1 기준
-- ㅁㄴㅇ
+- 가끔 먹통이 될 때가 있는데, web server 리부팅하자
 
 ## pySpark 관련
 - string으로 된 다양한 timestamp 포맷(yyy-MM-dd'T'HH:mm:ssZ) 모두 처리가능
@@ -97,6 +101,8 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
   - unix_timestamp(): [일반 timestamp 형식 → unix timestamp 형식] 변환
   - [Unix timestamp 관련 함수](https://jin03114.tistory.com/26?category=1025805)
 
+## AWS EMR 관련
+- Airflow EmrTerminateJobFlowOperator 를 써서 EMR Auto termination 명령을 내릴 때 **EMR version이 5.34.0 이상**이어야함
+
 ## 테이블 및 PostgreSQL 관련
-- NUMERIC 타입은 Numeric(precision, scale) 인자를 가질 수 있는데, precision은 전체(소수점포함) 숫자 길이를 뜻하고 scales은 소수점자리를 뜻한다. 따라서 Numeric(5,2)는 (-999.99 ~ 999.99 까지 커버가능). default scale 값이 0 이기 때문에 생략하면 소수점 숫자를 표기할 수 없음!!!
--
+- NUMERIC 타입은 Numeric(precision, scale) 인자를 가질 수 있는데, precision은 전체(소수점포함) 숫자 길이를 뜻하고 scales은 소수점자리를 뜻한다. 따라서 Numeric(5,2)는 (-999.99 ~ 999.99 까지 커버가능). **default scale 값이 0** 이기 때문에 생략하면 소수점 숫자를 표기할 수 없음!!!
