@@ -20,7 +20,7 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 1. You need to have AWS CLI configuration ready (AWS credentials + EMR Credentiasl) ([for details](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
 2. You need 🐳 docker & docker-compose
 3. Run the following command in the terminal where you git clone the reposit <br>
-```-'docker-compose -f docker-compose-LocalExecutor.yml up -d'```
+```docker-compose -f docker-compose-LocalExecutor.yml up -d```
 5. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
 6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
 7. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
@@ -75,4 +75,7 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - For data wrangling, Spark was used instead of Hadoop since Spark supports faster speed with the use of in-memory as intermediate data saving storage (replacing HDFS). For this Spark job, AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3.
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
-
+# 🤔 Struggle Points
+- S3 → Redshift 로 옮기는 COPT COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, ignoreheader=1 옵션을 꼭 넣어줘야함
+  - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 순서가 중요
+- 
