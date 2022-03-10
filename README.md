@@ -76,12 +76,23 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
 # 🤔 Struggle Points
+  
 ## S3, Redshift 관련
+- [S3, Redshift] Region 을 동일시하면, data transfer 속도가 빨라짐 (같은 데이터 센터 내에 있기 때문)
 - S3 → Redshift 로 옮기는 COPT COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, ignoreheader=1 옵션을 꼭 넣어줘야함
   - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 순서가 중요
+-
   
 ## AirFlow 관련
 - Airflow 버전별(v1, v2)로 CustomOperator 라이브러리와 사용법이 다르므로 주의할 것. 현 프로젝트는 v1.1 기준
->asdasd
-  asdasd
-  asd
+- ㅁㄴㅇ
+
+## pySpark 관련
+- string으로 된 다양한 timestamp 포맷(yyy-MM-dd'T'HH:mm:ssZ) 모두 처리가능
+- 'row_number()' 와 'window 함수' 조합으로 unique index column 추가 가능
+- pySpark → S3 로 write 할 때 (df.write.csv("s3a://xxxxx", timestampFormat="....")
+  - timestampFormat 인자를 지정하지 않으면 default 포맷으로 write 되므로 원하는 포맷이 있으면 꼭 명시해줘야함 timestampFormat = "yyyy-MM-dd HH:mm:ss"
+
+## 테이블 및 PostgreSQL 관련
+- NUMERIC 타입은 Numeric(precision, scale) 인자를 가질 수 있는데, precision은 전체(소수점포함) 숫자 길이를 뜻하고 scales은 소수점자리를 뜻한다. 따라서 Numeric(5,2)는 (-999.99 ~ 999.99 까지 커버가능). default scale 값이 0 이기 때문에 생략하면 소수점 숫자를 표기할 수 없음!!!
+-
