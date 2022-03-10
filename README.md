@@ -20,7 +20,7 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 1. You need to have AWS CLI configuration ready (AWS credentials + EMR Credentiasl) ([for details](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
 2. You need 🐳 docker & docker-compose
 3. Run the following command in the terminal where you git clone the reposit <br>
--  ```-'docker-compose -f docker-compose-LocalExecutor.yml up -d'```
+```-'docker-compose -f docker-compose-LocalExecutor.yml up -d'```
 5. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
 6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
 7. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
