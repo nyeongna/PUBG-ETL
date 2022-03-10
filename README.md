@@ -92,6 +92,10 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - 'row_number()' 와 'window 함수' 조합으로 unique index column 추가 가능
 - pySpark → S3 로 write 할 때 (df.write.csv("s3a://xxxxx", timestampFormat="....")
   - timestampFormat 인자를 지정하지 않으면 default 포맷으로 write 되므로 원하는 포맷이 있으면 꼭 명시해줘야함 timestampFormat = "yyyy-MM-dd HH:mm:ss"
+- Unix timestamp(정수 13자리, 밀리초) 처리를 주의
+  - to_timestamp(): [string 형식 → timestamp 형식] 변환
+  - unix_timestamp(): [일반 timestamp 형식 → unix timestamp 형식] 변환
+  - [Unix timestamp 관련 함수](https://jin03114.tistory.com/26?category=1025805)
 
 ## 테이블 및 PostgreSQL 관련
 - NUMERIC 타입은 Numeric(precision, scale) 인자를 가질 수 있는데, precision은 전체(소수점포함) 숫자 길이를 뜻하고 scales은 소수점자리를 뜻한다. 따라서 Numeric(5,2)는 (-999.99 ~ 999.99 까지 커버가능). default scale 값이 0 이기 때문에 생략하면 소수점 숫자를 표기할 수 없음!!!
