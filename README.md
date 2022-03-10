@@ -17,14 +17,15 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 - AWS Redshift
 
 # → How to Run
-1. You need to have AWS CLI configuration ready ([for details](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
+1. You need to have AWS CLI configuration ready (AWS credentials + EMR Credentiasl) ([for details](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html))
 2. You need 🐳 docker & docker-compose
-3. Run the following command in the terminal where you git clone the reposit 'docker-compose -f docker-compose-LocalExecutor.yml up -d'
-4. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
-5. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
-6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
-7. Create the S3 bucket with the name you specified for "BUCKET_NAME"
-8. Run the dag named "spark_submit_airflow"
+3. Run the following command in the terminal where you git clone the reposit
+   ```-'docker-compose -f docker-compose-LocalExecutor.yml up -d'```
+5. Add your "redshift' account info in the AirFlow Web UI (localhost:8080/admin -> Admin -> Connections)
+6. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/spark_submit_airflow.py"
+7. Assign your S3 Bucket name to "BUCKET_NAME" variable in "/dags/scripts/spark/spark-scipt.py"
+8. Create the S3 bucket with the name you specified for "BUCKET_NAME"
+9. Run the dag named "spark_submit_airflow"
 
 # 📘 General Description
 ![image](https://user-images.githubusercontent.com/26275222/157262095-ef985cd1-29f7-4c8d-8e97-c3db0cbffa82.png)
