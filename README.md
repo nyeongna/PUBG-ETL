@@ -76,7 +76,7 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
 <br>
-***
+*****
   
 # 🤔 Struggle Points
 ## S3, Redshift 관련
