@@ -76,6 +76,12 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
 # 🤔 Struggle Points
+## S3, Redshift 관련
 - S3 → Redshift 로 옮기는 COPT COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, ignoreheader=1 옵션을 꼭 넣어줘야함
   - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 순서가 중요
-- 
+  
+## AirFlow 관련
+- Airflow 버전별(v1, v2)로 CustomOperator 라이브러리와 사용법이 다르므로 주의할 것. 현 프로젝트는 v1.1 기준
+>asdasd
+  asdasd
+  asd
