@@ -109,3 +109,4 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 # 🏃 Improvement to be done
 - Redshift table에 distribution style, sorting key 추가해서 쿼리 성능 검증해보기
 - Redshift table에 BI Tool 연결해서 analytics 해보기
+- Full refresh (DAG 돌릴때마다 모든 것을 전부 새로 ETL) 말고 Execution date 를 기준으로 backfilling 해보기
