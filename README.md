@@ -31,7 +31,7 @@ This project is to practice the ETL process with Player Unknown Battle Ground(PU
 ![image](https://user-images.githubusercontent.com/26275222/157262095-ef985cd1-29f7-4c8d-8e97-c3db0cbffa82.png)
 Above is the total process of ETL process used in this project. All the workflows were controlled by AirFlow. Raw dataset is stored in AWS S3 bucket and all the data wrangling process is handled by AWS EMR cluster (mostly spark-related work). Then final Fact and Dimension tables are created in AWS Redshift, which supports fast query speed and compuatation due to columnar storage characteristic.
 
-# DAG and Tasks
+# 🗒 DAG and Tasks
 ![image](https://user-images.githubusercontent.com/26275222/157407898-47bfa5ec-30f4-4d29-84dc-bc819d59e893.png)
 - <strong>start_data_pipeline</strong>: DummyOperator to indicate the successful run of the DAG
 - <strong><script_to_s3, data_to_s3></strong>: Load raw data and spark script to S3
@@ -47,7 +47,7 @@ Above is the total process of ETL process used in this project. All the workflow
 
 # 📊 Fact/Dimension Tables
 ![image](https://user-images.githubusercontent.com/26275222/157388669-a460918c-4dff-4cbc-91cf-2c5deaf36141.png)
-kill_log table acts as <strong>FACT table </strong>. Each record represents every kill log during the match and the details of the kill log and relevant players info are stored in other <strong>DIMENSION tables </strong>.
+kill_log table acts as **FACT table**. Each record represents every kill log during the match and the details of the kill log and relevant players info are stored in other <strong>DIMENSION tables </strong>.
 - Detailed information about the match itself (map, game_size, etc...) can be found by JOINING the fact table with "match" table with JOIN key of "match_id".
 - "killer_id" and "victim_id" represents unique identifier for the player at specific match. It can be used as JOIN key with "player_id" column of "player" table.
 - Detailed "timestamp" information can be retrieved by JOINING "kill_log" table with "time" table with JOIN key of "timestamp".
@@ -79,7 +79,6 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 ***
   
 # 🤔 Struggle Points
-  
 ## S3, Redshift 관련
 - [S3, Redshift] Region 을 동일시하면, data transfer 속도가 빨라짐 (같은 데이터 센터 내에 있기 때문)
 - COPY COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, **ignoreheader=1** 옵션을 꼭 넣어줘야함
@@ -106,3 +105,7 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 
 ## 테이블 및 PostgreSQL 관련
 - NUMERIC 타입은 Numeric(precision, scale) 인자를 가질 수 있는데, precision은 전체(소수점포함) 숫자 길이를 뜻하고 scales은 소수점자리를 뜻한다. 따라서 Numeric(5,2)는 (-999.99 ~ 999.99 까지 커버가능). **default scale 값이 0** 이기 때문에 생략하면 소수점 숫자를 표기할 수 없음!!!
+  
+# 🏃 Improvement to be done
+- Redshift table에 distribution style, sorting key 추가해서 쿼리 성능 검증해보기
+- Redshift table에 BI Tool 연결해서 analytics 해보기
