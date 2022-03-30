@@ -71,7 +71,7 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 
 # ✔︎ Reasons for the Tech Stacks
 - Often times when Data Engineering work is needed, seemless workflows from Extract to Transform to Load are necessary. These 3 steps can be treated as one single data engineering work and Airflow works as one of the best tools to orchestrate the 3 ETL steps.
-- *Airflow* was chosen for orchestration because I was accustomed to working with Python and Airflow is one of the most popular Open Source pipeline framework recognized by many developers in Github. This hugh community enables quick trouble-shooting.
+- **Airflow** was chosen for orchestration because I was accustomed to working with Python and Airflow is one of the most popular Open Source pipeline framework recognized by many developers in Github. This hugh community enables quick trouble-shooting.
 - Since AWS Services share the same data center, moving data within the AWS Services guarantees high speed and stability. Thus, AWS S3 was chosen for Storage.
 - For data wrangling, Spark was used instead of Hadoop since Spark supports faster speed with the use of in-memory as intermediate data saving storage (replacing HDFS). For this Spark job, AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3.
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
