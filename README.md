@@ -76,10 +76,21 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - For data wrangling, Spark was used instead of Hadoop since Spark supports faster speed with the use of in-memory as intermediate data saving storage (replacing HDFS). For this Spark job, AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3.
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer speed from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
-## Airflow
-- asd
-## AWS EMR
-- asd
+### Why AWS?
+- 먼저, 클라우드 서비스로만 데이터 파이프라인을 구성하려고 했습니다. AWS, 구글 클라우드, Azure 등의 옵션이 있었지만, Airflow와 마찬가지로 점유율과 커뮤니티의 크기 면에서 도움을 받을 길이 더 많아보여서 AWS를 선택하였습니다.
+### Airflow
+- 워크플로우 매니지먼트 플랫폼으로 Airflow, Oozie, Luigi 등등이 있었지만 파이썬을 사용하고 UI가 좀더 직관적이며 tasks 끼리의 dependcies를 쉽게 알아볼 수 있는데 트리나 DAG 형태로 나타내주는 Airflow를 선택하였습니다. 또한 관련 커뮤니티가 현시점에서 가장 커서 초보입장에서 트러블 슈팅에 좀 더 용이할것 같아서 Airflow를 선택하였습니다.
+### AWS S3
+- AWS S3 에는 raw data가 저장되는 곳 + AWS EMR 에서 spark를 이용한 data transformation 결과 테이블을 저장하는 용도로 사용하였습니다. AWS EMR을 이용한 결과물을 저장하는 용도로는 HDFS 도 사용될 수 있었지만,
+  1. AWS EMR 에서 HDFS 저장 비용을 늘리고 싶지 않다는 점
+  2. AWS 서비스들은 같은 data center를 공유하고 있으므로 S3를 HDFS 대용으로 이용하여도 네트워크 오버헤드가 크지 않고, 싼 가격으로 데이터를 저장할 수 있으므로 AWS S3 를 선택하게 되었습니다
+### AWS EMR
+- Data Transformation을 하는 과정에서 Airflow 서버에서 직접 sql문을 통해서 data wrangling을 할 수도 있었지만,
+  1. raw data가 2GB에 해당하여 크다는 점
+  2. Airflow operator를 통해서 AWS EMR을 자동 생성 및 종료를 지원하고 AWS 서비스 내에서의 (S3 -> EMR -> S3 -> Redshift) 데이터 이동이 간편하고 빠르다는 점
+  3. data transformation 을 위해 잠깐 동안 AWS EMR을 이용하는 것은 비용이 그렇게 크지 않다는 점
+  4. Spark를 지원해서 pySpark를 통한 빠른 data transformation이 가능하다는 점
+  때문에 AWS EMR을 이용하여 data transformation 을 진행하였습니다
 *****
   
 # 🤔 Struggle Points
