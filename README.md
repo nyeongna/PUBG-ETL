@@ -76,6 +76,10 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 - For data wrangling, Spark was used instead of Hadoop since Spark supports faster speed with the use of in-memory as intermediate data saving storage (replacing HDFS). For this Spark job, AWS EMR was used because it can be created and turned-off easily with Airflow and support Spark. It also supports easy data transfer from AWS S3.
 - Lastly, AWS Redshift was used for storing the final Fact/Dimension table because it supports high data transfer speed from AWS S3 by using 'COPY COMMAND'. In spite of the fact that AWS Redshift is a columnar storage, it also supports PostgreSQL. Thus, it can be said AWS Redshift supports both the easy access and fast query speed.
 
+## Airflow
+- asd
+## AWS EMR
+- asd
 *****
   
 # 🤔 Struggle Points
