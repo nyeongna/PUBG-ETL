@@ -83,14 +83,26 @@ By JOINING Fact & Dimension tables, one can get the detilaed information regardi
 ### AWS S3
 - AWS S3 에는 raw data가 저장되는 곳 + AWS EMR 에서 spark를 이용한 data transformation 결과 테이블을 저장하는 용도로 사용하였습니다. AWS EMR을 이용한 결과물을 저장하는 용도로는 HDFS 도 사용될 수 있었지만,
   1. AWS EMR 에서 HDFS 저장 비용을 늘리고 싶지 않다는 점
-  2. AWS 서비스들은 같은 data center를 공유하고 있으므로 S3를 HDFS 대용으로 이용하여도 네트워크 오버헤드가 크지 않고, 싼 가격으로 데이터를 저장할 수 있으므로 AWS S3 를 선택하게 되었습니다
+  2. AWS 서비스들은 같은 data center를 공유하고 있으므로 S3를 HDFS 대용으로 이용하여도 네트워크 오버헤드가 크지 않고, 싼 가격으로 데이터를 저장할 수 있다는 점 <br>
+  때문에 AWS S3 를 선택하게 되었습니다
+  
 ### AWS EMR
 - Data Transformation을 하는 과정에서 Airflow 서버에서 직접 sql문을 통해서 data wrangling을 할 수도 있었지만,
   1. raw data가 2GB에 해당하여 크다는 점
   2. Airflow operator를 통해서 AWS EMR을 자동 생성 및 종료를 지원하고 AWS 서비스 내에서의 (S3 -> EMR -> S3 -> Redshift) 데이터 이동이 간편하고 빠르다는 점
   3. data transformation 을 위해 잠깐 동안 AWS EMR을 이용하는 것은 비용이 그렇게 크지 않다는 점
   4. Spark를 지원해서 pySpark를 통한 빠른 data transformation이 가능하다는 점
-  때문에 AWS EMR을 이용하여 data transformation 을 진행하였습니다
+  5. Spark는 intermediate output 저장 시 하드 대신 메모리를 사용한다는 점에서 Hadoop 대신 스파크를 사용 했습니다.<br>
+  이러한 점 때문에 AWS EMR을 이용하여 data transformation 을 진행하였습니다
+  
+### AWS Redshift
+- 데이터 웨어하우스로 AWS Aurora, RDS 등 사양한 서비스들이 사용될 수 있지만,
+  1. Column based Redshift가 다른 DB 보다 더 빠른 성능을 보여준다는 점
+  2. PostgreSQL 을 지원하여 S3 로부터 COPY COMMAND로 빠르게 데이터를 적재할 수 있다는 점
+  3. Redshift가 OLAP 와 같은 analytical query 에서 더 뛰어난 성능을 보여준다는 점 <br>
+  때문에 AWS Redshift를 데이터 웨어하우스로 사용하였습니다.
+  
+  
 *****
   
 # 🤔 Struggle Points
