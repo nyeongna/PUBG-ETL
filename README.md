@@ -68,10 +68,8 @@ GROUP BY m.map, kl.weapon
 ORDER BY m.map, Num DESC
 ```
 By JOINING Fact & Dimension tables, one can get the result of the **Most used Weapon by Map**. The result of the above code would be as follows <br>
-<img src="https://user-images.githubusercontent.com/26275222/161499122-959332e6-0fd4-4e02-be7d-792091a1792b.png" width="200" height="400"/>
-<img src="https://user-images.githubusercontent.com/26275222/161499171-047cc791-d11c-4824-a9c8-b2dbe8c38faa.png" width="200" height="400"/>
-![image](https://user-images.githubusercontent.com/26275222/161499122-959332e6-0fd4-4e02-be7d-792091a1792b.png)
-![image](https://user-images.githubusercontent.com/26275222/161499171-047cc791-d11c-4824-a9c8-b2dbe8c38faa.png)
+<img src="https://user-images.githubusercontent.com/26275222/161499122-959332e6-0fd4-4e02-be7d-792091a1792b.png" width="500" height="200"/>
+<img src="https://user-images.githubusercontent.com/26275222/161499171-047cc791-d11c-4824-a9c8-b2dbe8c38faa.png" width="500" height="200"/>
 
 # ✔︎ Reasons for the Tech Stacks
 - Often times when Data Engineering work is needed, seemless workflows from Extract to Transform to Load are necessary. These 3 steps can be treated as one single data engineering work and Airflow works as one of the best tools to orchestrate the 3 ETL steps.
