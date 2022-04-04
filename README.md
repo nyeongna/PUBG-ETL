@@ -54,20 +54,22 @@ kill_log table acts as **FACT table**. Each record represents every kill log dur
 - Specific information regarding the weapon that was used in the kill log can be found in the "weapon" dimension table. It can be retrieved by JOINING the fact table with "weapon" table.
 
 # 🙋‍♂️ Query Exmaple
+## The Most Used Weapon by Map Query
 ```sql
-SELECT kl.weapon AS Weapon, m.map AS Map,
-p1.player_name AS Killer, p1.team_placement AS Killer_placement, p1.player_kills AS Killer_kill, p1.player_dmg AS Killer_dmg,
-p2.player_name AS Victim, p2.team_placement AS Killer_placement, p2.player_kills AS Vivctim_kill, p2.player_dmg AS Victim_dmg
-FROM pubg.kill_log as kl
-LEFT JOIN pubg.match as m ON kl.match_id = m.match_id
-LEFT JOIN pubg.time as t ON kl.timestamp = t.timestamp
-LEFT JOIN pubg.player as p1 ON kl.killer_id = p1.player_id
-LEFT JOIN pubg.player as p2 ON kl.victim_id = p2.player_id
-LEFT JOIN pubg.weapon as w ON kl.weapon = w.weapon
-LIMIT 3
+SELECT m.map AS Map,
+       kl.weapon AS Weapon,
+       COUNT(*) AS Num
+FROM pubg.kill_log AS kl
+LEFT JOIN pubg.match AS m ON kl.match_id = m.match_id
+LEFT JOIN pubg.time AS t ON kl.timestamp = t.timestamp
+LEFT JOIN pubg.weapon AS w ON kl.weapon = w.weapon
+WHERE m.map in ('ERANGEL', 'MIRAMAR')
+GROUP BY m.map, kl.weapon
+ORDER BY m.map, Num DESC
 ```
-By JOINING Fact & Dimension tables, one can get the detilaed information regarding the kill log of the match. The result of the above code would be as follows
-![image](https://user-images.githubusercontent.com/26275222/157410400-bf421080-f64b-41f7-ae1c-42b710b6cea0.png)
+By JOINING Fact & Dimension tables, one can get the result of the **Most used Weapon by Map**. The result of the above code would be as follows
+![image](https://user-images.githubusercontent.com/26275222/161499122-959332e6-0fd4-4e02-be7d-792091a1792b.png)
+![image](https://user-images.githubusercontent.com/26275222/161499171-047cc791-d11c-4824-a9c8-b2dbe8c38faa.png)
 
 # ✔︎ Reasons for the Tech Stacks
 - Often times when Data Engineering work is needed, seemless workflows from Extract to Transform to Load are necessary. These 3 steps can be treated as one single data engineering work and Airflow works as one of the best tools to orchestrate the 3 ETL steps.
