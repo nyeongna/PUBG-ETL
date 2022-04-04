@@ -67,7 +67,8 @@ WHERE m.map in ('ERANGEL', 'MIRAMAR')
 GROUP BY m.map, kl.weapon
 ORDER BY m.map, Num DESC
 ```
-By JOINING Fact & Dimension tables, one can get the result of the **Most used Weapon by Map**. The result of the above code would be as follows
+By JOINING Fact & Dimension tables, one can get the result of the **Most used Weapon by Map**. The result of the above code would be as follows <br>
+       
 ![image](https://user-images.githubusercontent.com/26275222/161499122-959332e6-0fd4-4e02-be7d-792091a1792b.png)
 ![image](https://user-images.githubusercontent.com/26275222/161499171-047cc791-d11c-4824-a9c8-b2dbe8c38faa.png)
 
