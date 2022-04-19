@@ -139,7 +139,7 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
   
 # 🏃 Improvement to be done
 - Redshift table에 distribution style, sorting key 추가해서 쿼리 성능 검증해보기
-       - dist/sort key는 2개 이상의 node로 구성된 cluster에서 효과가 나옴
-       - why? distkey 자체가 각 node에 데이터를 고르게 분배해서 shuffling overhead를 줄이는 것이 목적인데 node가 1개면 어차피 한 node에서 JOIN이 일어나니 효과 X
+  - dist/sort key는 2개 이상의 node로 구성된 cluster에서 효과가 나옴
+  - why? distkey 자체가 각 node에 데이터를 고르게 분배해서 shuffling overhead를 줄이는 것이 목적인데 node가 1개면 어차피 한 node에서 JOIN이 일어나니 효과 X
 - Redshift table에 BI Tool 연결해서 analytics 해보기
 - Full refresh (DAG 돌릴때마다 모든 것을 전부 새로 ETL) 말고 Execution date 를 기준으로 backfilling 해보기
