@@ -1,7 +1,7 @@
 # PUBG Dataset ETL with AWS 
 
 # 📖 Overview
-This project is to practice the ETL process with Player Unknown Battle Ground(PUBG) dataset. Often times, dataset below 10,000 rows can easily be handled within a single server. However, when the size of the dataset is over 1,000,000 or even higher up to billions, the need for distributed computation is somewhat required. This project utilizes three PUBG-related dataset (two of them with 1,000,000 rows) from Kaggle. This ETL process loads the dataset into AWS S3 bucket, creates the AWS EMR cluster, loads and transforms the dataset within the EMR cluster-end by using pySpark, then write the transformed dataset back to AWS S3 in csv format. Then finally, it extracts the dataset in the S3 to final Fact and Dimension tables in AWS Redshift. All of the above series of steps are orchestrated by AirFlow. Structure of the Fact/Dimension tables are made based on the future analytical queries.
+This project is to practice the ETL process with Player Unknown Battle Ground(PUBG) dataset. Often times, dataset below 10,000 rows can easily be handled within a single server. However, when the size of the dataset is over 1,000,000 or even higher up to billions, the need for distributed computation is somewhat required. This project utilizes three PUBG-related dataset (two of them with 13,000,000 rows) from Kaggle. This ETL process loads the dataset into AWS S3 bucket, creates the AWS EMR cluster, loads and transforms the dataset within the EMR cluster-end by using pySpark, then write the transformed dataset back to AWS S3 in csv format. Then finally, it extracts the dataset in the S3 to final Fact and Dimension tables in AWS Redshift. All of the above series of steps are orchestrated by AirFlow. Structure of the Fact/Dimension tables are made based on the future analytical queries.
 
 # ⚡︎ Data Source
 - [PUBG - Aggregate](https://www.kaggle.com/skihikingkevin/pubg-match-deaths?select=aggregate) - match-related dataset <br>
@@ -113,8 +113,8 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 - [S3, Redshift] Region 을 동일시하면, data transfer 속도가 빨라짐 (같은 데이터 센터 내에 있기 때문)
 - COPY COMMAND 작성시, 옮기려는 파일(json, csv, parquet) 데이터의 헤더(HEADER)가 있는지 없는지 굉장히 중요하다. Redshift에 이미 Columns들을 만들었다면, **ignoreheader=1** 옵션을 꼭 넣어줘야함
   - ignoreheader=1 옵션을 추가했으므로, Redshift에서 레코드를 읽을때 컬럼명 정보 없이 값들만 순서대로 읽으므로, Redshift 컬럼명 정의할 때 **순서가 중요**
-- COPY COMMAND 작성시, 옵션에 "TIMEFORMAT 'YYYY-MM-DD HH:MI:SS" 추가해줘야함
-  - 옵션 안 적을시 Redshift에 "yyyy-MM-dd HH:mm:ss.0" 형식으로 default 로 저장
+- COPY COMMAND 작성시, 옵션에 **"TIMEFORMAT 'YYYY-MM-DD HH:MI:SS"** 추가해줘야함
+  - 옵션 안 적을시 Redshift에 **"yyyy-MM-dd HH:mm:ss.0" default 형식**으로 저장됨
   
 ### AirFlow 관련
 - Airflow 버전별(v1, v2)로 CustomOperator 라이브러리와 사용법이 다르므로 주의할 것. 현 프로젝트는 v1.1 기준
