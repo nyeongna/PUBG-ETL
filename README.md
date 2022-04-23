@@ -127,10 +127,13 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
     df = kg_df.withColumn("ts", to_timestamp(df.unix_ts / 1000)
     df = kg_df.withColumn("ts", to_timestamp(df.default_ts, "yyyy-MM-dd'T'HH:mm:ssZ"))
     ```
-  - 시간끼리의 연산에는 Unix Timestamp 을 활용하는 것이 편함
+  - 시간끼리의 연산에는 Unix Timestamp형태로 바꿔서 계산하는 것이 편함
   - ```python
     df = df.withColumn("added timestamp", to_timestamp(unix_timestamp(df.ts) + 1232))
     ```
+  - to_timestamp(): [string/long(10) 형식 → timestamp 형식] 변환
+  - unix_timestamp(): [Default timestamp 형식 → unix timestamp 형식] 변환
+  - [Unix timestamp 관련 함수](https://jin03114.tistory.com/26?category=1025805)
 - 인덱스 넘버(index) 추가하기
   - Pandas index 초기화 기본 함수를 pySpark는 제공하지 않음
        ```python
@@ -144,9 +147,7 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 - pySpark → S3 로 write 할 때 (df.write.csv("s3a://xxxxx", timestampFormat="....")
   - timestampFormat 인자를 지정하지 않으면 default 포맷으로 write 되므로 원하는 포맷이 있으면 꼭 명시해줘야함 timestampFormat = "yyyy-MM-dd HH:mm:ss"
 - Unix timestamp(정수 13자리, 밀리초) 처리를 주의
-  - to_timestamp(): [string 형식 → timestamp 형식] 변환
-  - unix_timestamp(): [일반 timestamp 형식 → unix timestamp 형식] 변환
-  - [Unix timestamp 관련 함수](https://jin03114.tistory.com/26?category=1025805)
+
 
 ### AWS EMR 관련
 - Airflow EmrTerminateJobFlowOperator 를 써서 EMR Auto termination 명령을 내릴 때 **EMR version이 5.34.0 이상**이어야함
