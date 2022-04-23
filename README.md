@@ -144,6 +144,9 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
     window = Window.orderBy(kill_log_df.killer_id)
     kill_log_df = kill_log_df.withColumn('kill_log_id', row_number().over(window))
     ```
+    - Window.orderBy()를 통해 특정 열에 대한 windowSpec 을 만들어준다
+    - row_number()를 통해 windowSpec에 대해 인덱스 번호를 추가해준다
+    ```
 - pySpark → S3 로 write 할 때 (df.write.csv("s3a://xxxxx", timestampFormat="....")
   - timestampFormat 인자를 지정하지 않으면 default 포맷으로 write 되므로 원하는 포맷이 있으면 꼭 명시해줘야함 timestampFormat = "yyyy-MM-dd HH:mm:ss"
 - Unix timestamp(정수 13자리, 밀리초) 처리를 주의
