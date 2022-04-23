@@ -121,13 +121,21 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 - 가끔 먹통이 될 때가 있는데, web server 리부팅하자
 
 ### pySpark 관련
-- string으로 된 다양한 timestamp 포맷(yyyy-MM-dd'T'HH:mm:ssZ) 모두 처리가능
+- Timestamp() 형식 관련
+  - to_timestamp() 함수를 통해 **10(13)자리 Unix Timestamp** OR **다양항 형태의 Default Timestamp** 를 (yyyy-MM-dd HH:mm:ss) 형태로 변환가능
+  - ```python
+    df = kg_df.withColumn("ts", to_timestamp(df.unix_ts / 1000)
+    df = kg_df.withColumn("ts", to_timestamp(df.default_ts, "yyyy-MM-dd'T'HH:mm:ssZ"))
+    ```
+  - 시간끼리의 연산에는 Unix Timestamp 을 활용하는 것이 편함
+  - ```python
+    df = df.withColumn("added timestamp", to_timestamp(unix_timestamp(df.ts) + 1232))
+    ```
 - 인덱스 넘버(index) 추가하기
-  - Pandas
+  - Pandas index 초기화 기본 함수를 pySpark는 제공하지 않음
        ```python
        df.reset_index(drop=False, inplace=True)
        ```
-       같은 index 초기화 기본 함수를 pySpark 는 제공하지 않음
   - 따라서 **'row_number()' 와 'window 함수' 조합**으로 index column(0,1,2,...,n-1) 추가 가능
   - ```python
     window = Window.orderBy(kill_log_df.killer_id)
