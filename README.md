@@ -122,7 +122,13 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 
 ### pySpark 관련
 - string으로 된 다양한 timestamp 포맷(yyy-MM-dd'T'HH:mm:ssZ) 모두 처리가능
-- 'row_number()' 와 'window 함수' 조합으로 unique index column 추가 가능
+- 인덱스 넘버(index) 추가하기
+  - Pandas ```df.reset_index(drop=False, inplace=True)``` 같은 index 초기화 기본 함수를 pySpark 는 제공하지 않음
+  - 따라서 **'row_number()' 와 'window 함수' 조합**으로 index column(0,1,2,...,n-1) 추가 가능
+  - ```
+    window = Window.orderBy(kill_log_df.killer_id)
+    kill_log_df = kill_log_df.withColumn('kill_log_id', row_number().over(window))
+    ```
 - pySpark → S3 로 write 할 때 (df.write.csv("s3a://xxxxx", timestampFormat="....")
   - timestampFormat 인자를 지정하지 않으면 default 포맷으로 write 되므로 원하는 포맷이 있으면 꼭 명시해줘야함 timestampFormat = "yyyy-MM-dd HH:mm:ss"
 - Unix timestamp(정수 13자리, 밀리초) 처리를 주의
