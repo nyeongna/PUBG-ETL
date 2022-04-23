@@ -125,7 +125,7 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 - 인덱스 넘버(index) 추가하기
   - Pandas ```df.reset_index(drop=False, inplace=True)``` 같은 index 초기화 기본 함수를 pySpark 는 제공하지 않음
   - 따라서 **'row_number()' 와 'window 함수' 조합**으로 index column(0,1,2,...,n-1) 추가 가능
-  - ```
+  - ```sql
     window = Window.orderBy(kill_log_df.killer_id)
     kill_log_df = kill_log_df.withColumn('kill_log_id', row_number().over(window))
     ```
