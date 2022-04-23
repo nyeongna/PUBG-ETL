@@ -123,9 +123,11 @@ By JOINING Fact & Dimension tables, one can get the result of the **Most used We
 ### pySpark 관련
 - string으로 된 다양한 timestamp 포맷(yyyy-MM-dd'T'HH:mm:ssZ) 모두 처리가능
 - 인덱스 넘버(index) 추가하기
-  - Pandas ```python
+  - Pandas
+       ```python
        df.reset_index(drop=False, inplace=True)
-       ``` 같은 index 초기화 기본 함수를 pySpark 는 제공하지 않음
+       ```
+       같은 index 초기화 기본 함수를 pySpark 는 제공하지 않음
   - 따라서 **'row_number()' 와 'window 함수' 조합**으로 index column(0,1,2,...,n-1) 추가 가능
   - ```python
     window = Window.orderBy(kill_log_df.killer_id)
